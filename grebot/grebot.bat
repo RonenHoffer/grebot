@@ -1,0 +1,1 @@
+@python %~dp0\..\Lib\site-packages\grebot\grebot.py %*

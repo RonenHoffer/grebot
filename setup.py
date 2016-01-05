@@ -1,6 +1,13 @@
 from setuptools import setup
+from platform import system
 
+SYSTEM = system()
 VERSION = '0.1dev'
+
+if SYSTEM == 'Windows':
+    scripts = ['grebot/grebot.bat']
+else:
+    scripts = ['grebot/grebot.sh']
 
 setup(
     name='grebot',
@@ -8,5 +15,5 @@ setup(
     packages=['grebot'],
     license='MIT',
     long_description=open('README.txt').read(),
-    scripts=['grebot/grebot.py'],
+    scripts=scripts,
 )
