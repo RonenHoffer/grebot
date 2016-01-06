@@ -1,14 +1,15 @@
 from os import walk
 from os.path import abspath, join
 from argparse import ArgumentParser
-from re import findall, sub, IGNORECASE
+from re import findall, sub, IGNORECASE, escape
 
 
 class Grebot(object):
 
     LINE_FORMAT = '%s:\t%s'
 
-    def __init__(self, function_name, extensions, base_dir=None, sensitive=False, color=False):
+    def __init__(self, function_name, extensions, base_dir=None, regex=False, sensitive=False, color=False):
+        function_name = function_name if regex else escape(function_name)
         self._search_word = '%s|%s|%s|%s' % (function_name, function_name.replace('_', ' '),
                                              sub('(.)([A-Z][a-z_]+)', r'\1 \2', function_name),
                                              function_name.replace(' ', '_'))
@@ -37,17 +38,19 @@ class Grebot(object):
 
 def get_parser():
     parser = ArgumentParser()
-    parser.usage = '%(prog)s function_name [-despch]'
+    parser.usage = '%(prog)s function_name [-despchr]'
     parser.add_argument('-c', '--color', action='store_true', default=False,
                         help='show matched words in color')
     parser.add_argument('-s', '--sensitive', action='store_true', default=False,
-                        help='Be case sensitive')
+                        help='be case sensitive')
     parser.add_argument('-p', '--path', type=str, default='.',
                         help='path to check to start recursive check from')
     parser.add_argument('-e', '--extensions', type=str, default='txt,robot,py',
                         help='which file extensions to check')
     parser.add_argument('-d', '--debug', action='store_true', default=False,
                         help='show exception in case of fail')
+    parser.add_argument('-r', '--regex', action='store_true', default=False,
+                        help='use regex pattern search')
     return parser
 
 
@@ -57,7 +60,8 @@ if __name__ == '__main__':
     try:
         function_name = ' '.join(word)
         if function_name:
-            Grebot(function_name, args.extensions, args.path, args.sensitive, args.color).main()
+            Grebot(function_name, args.extensions, args.path,
+                   args.regex, args.sensitive, args.color).main()
     except:
         if args.debug:
             raise
