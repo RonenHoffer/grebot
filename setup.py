@@ -2,7 +2,7 @@ from setuptools import setup
 from platform import system
 
 SYSTEM = system()
-VERSION = '0.1dev'
+VERSION = '1.0'
 
 if SYSTEM == 'Windows':
     scripts = ['grebot/grebot.bat']
