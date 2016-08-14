@@ -2,6 +2,7 @@ from os import walk
 from os.path import abspath, join
 from argparse import ArgumentParser
 from re import findall, sub, IGNORECASE, escape
+from colorama import init as colorama_init, Fore, Style
 
 
 class Grebot(object):
@@ -10,6 +11,7 @@ class Grebot(object):
 
     def __init__(self, function_name, extensions, base_dir=None, regex=False,
                  quite=False, sensitive=False, sum_all_matches=False, color=False):
+        colorama_init()
         function_name = function_name if regex else escape(function_name)
         self._search_word = '%s|%s|%s|%s' % (function_name, function_name.replace('_', ' '),
                                              sub('(.)([A-Z][a-z_]+)', r'\1 \2', function_name),
@@ -19,7 +21,7 @@ class Grebot(object):
         self._quite = quite
         self._total_matches = 0
         self._is_case_sensitive = 0 if sensitive else IGNORECASE
-        self._word_format = '\033[91m%s\033[0m' if color else '%s'
+        self._word_format = '{}%s{}'.format(Fore.RED, Style.RESET_ALL) if color else '%s'
         self._extensions = '|'.join(['\w+\.%s$' % extension for extension in extensions.split(',')])
 
     def main(self):

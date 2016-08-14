@@ -2,7 +2,7 @@ from setuptools import setup
 from platform import system
 
 SYSTEM = system()
-VERSION = '0.1dev'
+VERSION = '1.0.1'
 
 if SYSTEM == 'Windows':
     scripts = ['grebot/grebot.bat']
@@ -16,4 +16,5 @@ setup(
     license='MIT',
     long_description=open('README.txt').read(),
     scripts=scripts,
+    install_requires=['colorama']
 )
