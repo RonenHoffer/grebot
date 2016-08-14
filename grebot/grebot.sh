@@ -1,1 +1,1 @@
-python ../Lib/site-packages/grebot/grebot.py
+python -m grebot.grebot $*
