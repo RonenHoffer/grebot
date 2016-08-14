@@ -1,5 +1,5 @@
 # Grebot 
-A nice CMD utility to sreach keywords and functions in robot framework project
+A nice CMD utility to search keywords and functions in robot framework project
 ```
 usage: grebot.py function_name [-despch]
 
