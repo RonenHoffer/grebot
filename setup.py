@@ -16,5 +16,5 @@ setup(
     license='MIT',
     long_description=open('README.txt').read(),
     scripts=scripts,
-    install_requires=['colorama', 'argparse', 're', 'os']
+    install_requires=['colorama']
 )
